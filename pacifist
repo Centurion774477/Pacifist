@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# Pacifist makes adding files and directories to your PATH easier.
+
+# Before you can use Pacifist, you'll have to add it to your PATH.
+# chmod +x pacifist && mv pacifist ~/.local/bin/
+
+# Once you've done that, you can call Pacifist anywhere like this:
+# pacifist <file or directory>
+
+# Pacifist will move your files ~/.local/bin,
+# which should already exist and be on your PATH.
+
+# Written by Reece Turner, and licensed under the Lil License.
+
+set -e
+
+TARGET_DIR="$HOME/.local/bin"
+TOOL="$1"
+
+# guard clauses
+if [[ -z "$TOOL" ]]
+then
+  echo "Usage: pacifist <file-or-directory>" >&2
+  exit 1
+fi
+
+if [[ ! -e "$TOOL" ]]
+then
+  echo "Error: '$TOOL' does not exist." >&2
+  exit 1
+fi
+
+# resolve to absolute path
+TOOL="$(realpath "$TOOL")"
+
+# ensure target dir exists and is on the PATH
+mkdir -p "$TARGET_DIR"
+
+if [[ ":$PATH:" != *":$TARGET_DIR:"* ]]
+then
+  echo "Warning: $TARGET_DIR is not currently on your PATH."
+  echo "Add this to your shell config (~/.bashrc, ~/.zshrc, etc.):"
+  echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+fi
+
+# create symlink
+NAME="$(basename "$TOOL")"
+LINK="$TARGET_DIR/$NAME"
+
+if [[ -e "$LINK" ]]
+then
+  echo "Error: '$NAME' already exists in $TARGET_DIR." >&2
+  exit 1
+fi
+
+ln -s "$TOOL" "$LINK"
+chmod +x "$TOOL"
+
+echo "'$NAME' is now available as a command! Thanks for using Pacifist!"
