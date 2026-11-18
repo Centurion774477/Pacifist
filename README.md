@@ -20,6 +20,16 @@ If it's not on your PATH, add this to your shell config file (.bashrc, .zshrc, e
 
 # Pacifism
 
-You can see a brief writing on the philosophy of Pacifism in `pacifism.txt` – I suggest you give it a look.
+You can see a brief summary on the philosophy of Pacifism in `pacifism.txt` – I suggest you give it a look.
+
+Despite the writing, there is nothing Pacifist about the shell script. The name developed like this:
+
+pathy -> pathifist (play on the words path and pacifist) -> pacifist
+
+I only chose the name Pacifist to follow the theme I set with [Nihilist](https://github.com/Centurion774477/Nihilist).
+
+<hr>
+
+Thanks for giving Pacifist a look.
 
 Cheers!
